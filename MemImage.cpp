@@ -857,7 +857,7 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 	if (info_ptr == NULL)
 	{
 	  fclose(fp);
-	  png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+	  png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
 	  return false;
 	}
 
@@ -868,7 +868,7 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 	if (setjmp(png_jmpbuf(png_ptr)))
 	{
 	  /* Free all of the memory associated with the png_ptr and info_ptr */
-	  png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+	  png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 	  fclose(fp);
 	  /* If we get here, we had a problem reading the file */
 	  return false;
@@ -888,61 +888,73 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 	* adjustment), then you can read the entire image (including
 	* pixels) into the info structure with this call:
 	*/
-	png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, png_voidp_NULL);
+	png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, (png_voidp)NULL);
 
 	/* At this point you have read the entire image */
 
 	///////////////////////////////////////////////////////////////////////////
+	
+	m_width = png_get_image_width(png_ptr, info_ptr); //info_ptr->width;
+	m_height = png_get_image_height(png_ptr, info_ptr);//info_ptr->height;
 
-	m_width = info_ptr->width;
-	m_height = info_ptr->height;
 	DWORD pixelCount = m_width * m_height;
 
 	if (s_bVerbose)
 		LOG("\t%dx%d\n", m_width, m_height);
 
+	//Added by me
+	png_bytep trans_alpha = NULL;
+	int num_trans = 0;
+	png_color_16p trans_color = NULL;
+	png_uint_32 tRNS = png_get_tRNS(png_ptr, info_ptr, &trans_alpha, &num_trans, &trans_color);
+
 	// Create a buffer for the image data.
-	DWORD imageBytes = info_ptr->rowbytes * info_ptr->height * (info_ptr->num_trans == 0 ? 1 : 2);
+	DWORD imageBytes = png_get_rowbytes(png_ptr, info_ptr) * m_height * (num_trans == 0 ? 1 : 2);//info_ptr->rowbytes * info_ptr->height * (info_ptr->num_trans == 0 ? 1 : 2);
 	if (!AllocateBuffer(imageBytes))
 		return false;
-
+	
 	// Copy the data in row by row.
-	if (info_ptr->color_type == PNG_COLOR_TYPE_RGB_ALPHA || 
-		info_ptr->color_type == PNG_COLOR_TYPE_RGB || 
-		(info_ptr->color_type == PNG_COLOR_TYPE_PALETTE && info_ptr->num_trans == 0))
+	if (png_get_color_type(png_ptr, info_ptr) == PNG_COLOR_TYPE_RGB_ALPHA ||//info_ptr->color_type == PNG_COLOR_TYPE_RGB_ALPHA || 
+		png_get_color_type(png_ptr, info_ptr) == PNG_COLOR_TYPE_RGB || //info_ptr->color_type == PNG_COLOR_TYPE_RGB || 
+		(png_get_color_type(png_ptr, info_ptr) == PNG_COLOR_TYPE_PALETTE && num_trans == 0)) //info_ptr->color_type == PNG_COLOR_TYPE_PALETTE && info_ptr->num_trans == 0))
 	{
-		for (DWORD row = 0; row < info_ptr->height; ++row)
+		for (DWORD row = 0; row < m_height; ++row) //info_ptr->height; ++row)
 		{
-			memcpy(&m_buffer[row*info_ptr->rowbytes], info_ptr->row_pointers[row], info_ptr->rowbytes);
+			memcpy(&m_buffer[row*png_get_rowbytes(png_ptr, info_ptr)], png_get_rows(png_ptr, info_ptr)[row], png_get_rowbytes(png_ptr, info_ptr)); //memcpy(&m_buffer[row*info_ptr->rowbytes], info_ptr->row_pointers[row], info_ptr->rowbytes);
 		}
 	}
-	else if (info_ptr->color_type == PNG_COLOR_TYPE_PALETTE && info_ptr->num_trans > 0)
+	else if (png_get_color_type(png_ptr, info_ptr) == PNG_COLOR_TYPE_PALETTE && num_trans > 0) //(info_ptr->color_type == PNG_COLOR_TYPE_PALETTE && info_ptr->num_trans > 0)
 	{
-		for (DWORD row = 0; row < info_ptr->height; ++row)
+		for (DWORD row = 0; row < m_height; ++row) // (DWORD row = 0; row < info_ptr->height; ++row)
 		{
-			for (DWORD ii = 0; ii < info_ptr->width; ++ii)
+			for (DWORD ii = 0; ii < m_width; ++ii) //(DWORD ii = 0; ii < info_ptr->width; ++ii)
 			{
-				BYTE palIx = info_ptr->row_pointers[row][ii];
-				m_buffer[row*info_ptr->rowbytes + ii] = palIx;
+				BYTE palIx = png_get_rows(png_ptr, info_ptr)[row][ii]; //BYTE palIx = info_ptr->row_pointers[row][ii];
+				m_buffer[row*png_get_rowbytes(png_ptr, info_ptr) + ii] = palIx; //m_buffer[row*info_ptr->rowbytes + ii] = palIx;
 
 				BYTE alpha = 255;
-				if (palIx < info_ptr->num_trans)
-					alpha = info_ptr->trans[palIx];
-				m_buffer[pixelCount + row*info_ptr->rowbytes + ii] = alpha;
+				if (palIx < num_trans) // (palIx < info_ptr->num_trans)
+					alpha = trans_alpha[palIx]; // alpha = info_ptr->trans[palIx];
+				m_buffer[pixelCount + row* png_get_rowbytes(png_ptr, info_ptr) + ii] = alpha; // m_buffer[pixelCount + row*info_ptr->rowbytes + ii] = alpha;
 			}
 		}
 	}
 	else 
 	{
-		printf("ERROR: PNG format unsupported.  Format = %d", info_ptr->color_type);
+		printf("ERROR: PNG format unsupported.  Format = %d", png_get_color_type(png_ptr, info_ptr)); // printf("ERROR: PNG format unsupported.  Format = %d", info_ptr->color_type);
 		return false;
 	}
 
+	//Added by me
+	png_colorp palette = NULL;
+	int num_palette = 0;
+	png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
+
 	// Copy the palette.
-	if (info_ptr->palette)
+	if (palette) //(info_ptr->palette)
 	{
 		// Assuming here that png_color is 3 bytes (it is at time of writing).
-		memcpy(m_palette, info_ptr->palette, info_ptr->num_palette*sizeof(png_color));
+		memcpy(m_palette, palette, num_palette*sizeof(png_color)); // memcpy(m_palette, info_ptr->palette, info_ptr->num_palette*sizeof(png_color));
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -951,14 +963,14 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 	FORMATID type = FORMAT_UNSPECIFIED;
 	m_bPalettized = false;
 	m_bHasAlpha = false;
-	if (PNG_COLOR_TYPE_PALETTE == info_ptr->color_type)
+	if (PNG_COLOR_TYPE_PALETTE == png_get_color_type(png_ptr, info_ptr)) // if (PNG_COLOR_TYPE_PALETTE == info_ptr->color_type)
 	{
 		m_bPalettized = true;
 
 		if (s_bVerbose)
-			LOG("\t%d palette entries\n", info_ptr->num_palette);
+			LOG("\t%d palette entries\n", num_palette); // LOG("\t%d palette entries\n", info_ptr->num_palette);
 
-		if (info_ptr->num_trans == 0)
+		if (num_trans == 0) // info_ptr->num_trans == 0)
 		{
 			type = PNGTYPE_PALETTIZED;
 		}
@@ -966,16 +978,16 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 		{
 			type = PNGTYPE_PALETTIZED_ALPHAMASK;
 			if (s_bVerbose)
-				LOG("\t%d transparency values\n", info_ptr->num_trans);
+				LOG("\t%d transparency values\n", num_trans); // LOG("\t%d transparency values\n", info_ptr->num_trans);
 			m_bHasAlpha = true;
 		}
 	}
-	else if (PNG_COLOR_TYPE_RGB_ALPHA == info_ptr->color_type)
+	else if (PNG_COLOR_TYPE_RGB_ALPHA == png_get_color_type(png_ptr, info_ptr)) // else if (PNG_COLOR_TYPE_RGB_ALPHA == info_ptr->color_type)
 	{
 		type = PNGTYPE_RGBA;
 		m_bHasAlpha = true;
 	}
-	else if (PNG_COLOR_TYPE_RGB == info_ptr->color_type)
+	else if (PNG_COLOR_TYPE_RGB == png_get_color_type(png_ptr, info_ptr)) // else if (PNG_COLOR_TYPE_RGB == info_ptr->color_type)
 	{
 		type = PNGTYPE_RGB;
 	}
@@ -992,7 +1004,7 @@ bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
 	///////////////////////////////////////////////////////////////////////////
 
 	/* clean up after the read, and free any memory allocated - REQUIRED */
-	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+	png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 
 	/* close the file */
 	fclose(fp);
@@ -1113,7 +1125,7 @@ bool MemImage::SaveToPNG(const char* filename, FORMATID type) const
 	if (setjmp(png_jmpbuf(png_ptr)))
 	{
 		/* Free all of the memory associated with the png_ptr and info_ptr */
-		png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 		/* If we get here, we had a problem reading the file */
 		return false;
 	}

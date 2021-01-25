@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{09170033-5727-4925-80BE-1E00545EDE9E}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>16.0.30804.86</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/crblib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\crblibd.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/crblib.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/crblib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\crblib.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/crblib.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\arithc.c" />
+    <ClCompile Include="..\bbitio.c" />
+    <ClCompile Include="..\bmpio.c" />
+    <ClCompile Include="..\cacmari.c" />
+    <ClCompile Include="..\chshutil.c" />
+    <ClCompile Include="..\cindcatr.c" />
+    <ClCompile Include="..\codeutil.c" />
+    <ClCompile Include="..\context.c" />
+    <ClCompile Include="..\crbconv.c" />
+    <ClCompile Include="..\crbeqlib.c" />
+    <ClCompile Include="..\crbequtil.c" />
+    <ClCompile Include="..\crc32.c" />
+    <ClCompile Include="..\dbf.c" />
+    <ClCompile Include="..\equtil.c" />
+    <ClCompile Include="..\farithc.c" />
+    <ClCompile Include="..\fbitio.c" />
+    <ClCompile Include="..\fileutil.c" />
+    <ClCompile Include="..\fileutio.c" />
+    <ClCompile Include="..\floatutil.c" />
+    <ClCompile Include="..\huffa.c" />
+    <ClCompile Include="..\huffman2.c" />
+    <ClCompile Include="..\imutil.c" />
+    <ClCompile Include="..\intmath.c" />
+    <ClCompile Include="..\ladder.c" />
+    <ClCompile Include="..\lbitio.c" />
+    <ClCompile Include="..\list.c" />
+    <ClCompile Include="..\log.c" />
+    <ClCompile Include="..\matchpat.c" />
+    <ClCompile Include="..\Matrix.c" />
+    <ClCompile Include="..\mempool.c" />
+    <ClCompile Include="..\memutil.c" />
+    <ClCompile Include="..\mtf.c" />
+    <ClCompile Include="..\myassert.c" />
+    <ClCompile Include="..\o0coder.c" />
+    <ClCompile Include="..\o1coder.c" />
+    <ClCompile Include="..\report.c" />
+    <ClCompile Include="..\rungae.c" />
+    <ClCompile Include="..\rungo1.c" />
+    <ClCompile Include="..\runtrans.c" />
+    <ClCompile Include="..\scontext.c" />
+    <ClCompile Include="..\sortnods.c" />
+    <ClCompile Include="..\soz.c" />
+    <ClCompile Include="..\spawnmutil.c" />
+    <ClCompile Include="..\strutil.c" />
+    <ClCompile Include="..\timer.c" />
+    <ClCompile Include="..\tsc.c" />
+    <ClCompile Include="..\Vector.c" />
+    <ClCompile Include="..\vqarith.c" />
+    <ClCompile Include="..\walker.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\arithc.h" />
+    <ClInclude Include="..\bbitio.h" />
+    <ClInclude Include="..\bmpio.h" />
+    <ClInclude Include="..\cacmari.h" />
+    <ClInclude Include="..\chshutil.h" />
+    <ClInclude Include="..\cindcatr.h" />
+    <ClInclude Include="..\codeutil.h" />
+    <ClInclude Include="..\context.h" />
+    <ClInclude Include="..\crbconv.h" />
+    <ClInclude Include="..\crbeqlib.h" />
+    <ClInclude Include="..\crc32.h" />
+    <ClInclude Include="..\equtil.h" />
+    <ClInclude Include="..\farithc.h" />
+    <ClInclude Include="..\fbitio.h" />
+    <ClInclude Include="..\fileutil.h" />
+    <ClInclude Include="..\floatutil.h" />
+    <ClInclude Include="..\huffa.h" />
+    <ClInclude Include="..\huffman2.h" />
+    <ClInclude Include="..\imutil.h" />
+    <ClInclude Include="..\inc.h" />
+    <ClInclude Include="..\intmath.h" />
+    <ClInclude Include="..\ladder.h" />
+    <ClInclude Include="..\lbitio.h" />
+    <ClInclude Include="..\list.h" />
+    <ClInclude Include="..\log.h" />
+    <ClInclude Include="..\matchpat.h" />
+    <ClInclude Include="..\Matrix.h" />
+    <ClInclude Include="..\mempool.h" />
+    <ClInclude Include="..\memutil.h" />
+    <ClInclude Include="..\mtf.h" />
+    <ClInclude Include="..\myassert.h" />
+    <ClInclude Include="..\o0coder.h" />
+    <ClInclude Include="..\o1coder.h" />
+    <ClInclude Include="..\report.h" />
+    <ClInclude Include="..\rungae.h" />
+    <ClInclude Include="..\rungo1.h" />
+    <ClInclude Include="..\runtrans.h" />
+    <ClInclude Include="..\scontext.h" />
+    <ClInclude Include="..\sortnods.h" />
+    <ClInclude Include="..\soz.h" />
+    <ClInclude Include="..\spawnmutil.h" />
+    <ClInclude Include="..\strutil.h" />
+    <ClInclude Include="..\timer.h" />
+    <ClInclude Include="..\tsc.h" />
+    <ClInclude Include="..\Vector.h" />
+    <ClInclude Include="..\vqarith.h" />
+    <ClInclude Include="..\walker.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

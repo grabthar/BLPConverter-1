@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{38c78b7c-cc91-4b40-aad8-e147a9ca721c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="PNGLib">
+      <UniqueIdentifier>{a3362072-326c-4a08-8f1a-bea836651e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZLib">
+      <UniqueIdentifier>{f5254229-159a-4e2d-9e5f-5462efde7da2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="palbmp">
+      <UniqueIdentifier>{ffda5d3c-08c7-4786-8a0e-ea99b399e05b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{db9116bb-be65-4072-9484-194e8b481e27}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BLP.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemImage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="palbmp\colorconv.h">
+      <Filter>palbmp</Filter>
+    </ClInclude>
+    <ClInclude Include="palbmp\palcreate.h">
+      <Filter>palbmp</Filter>
+    </ClInclude>
+    <ClInclude Include="palbmp\palettize.h">
+      <Filter>palbmp</Filter>
+    </ClInclude>
+    <ClInclude Include="palbmp\paloptimize.h">
+      <Filter>palbmp</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\crc32.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\deflate.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\gzguts.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\inffast.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\inffixed.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\inflate.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\inftrees.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\trees.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\zconf.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\zlib.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib-1.2.11\zutil.h">
+      <Filter>ZLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\png.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pngconf.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pngdebug.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pnginfo.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pngpriv.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pngstruct.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+    <ClInclude Include="lpng1637\pnglibconf.h">
+      <Filter>PNGLib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BLPConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MemImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="palbmp\colorconv.c">
+      <Filter>palbmp</Filter>
+    </ClCompile>
+    <ClCompile Include="palbmp\palcreate.c">
+      <Filter>palbmp</Filter>
+    </ClCompile>
+    <ClCompile Include="palbmp\palettize.c">
+      <Filter>palbmp</Filter>
+    </ClCompile>
+    <ClCompile Include="palbmp\paloptimize.c">
+      <Filter>palbmp</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\adler32.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\compress.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\crc32.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\deflate.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\gzclose.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\gzlib.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\gzread.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\gzwrite.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\infback.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\inffast.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\inflate.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\inftrees.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\trees.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\uncompr.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib-1.2.11\zutil.c">
+      <Filter>ZLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\example.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\png.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngerror.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngget.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngmem.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngpread.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngread.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngrio.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngrtran.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngrutil.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngset.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngtrans.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngwio.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngwrite.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngwtran.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="lpng1637\pngwutil.c">
+      <Filter>PNGLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
