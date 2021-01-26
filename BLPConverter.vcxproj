@@ -52,6 +52,7 @@
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>CppCoreCheckStlRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
@@ -116,6 +117,8 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -133,7 +136,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -141,7 +144,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BLP.h" />
+    <ClInclude Include="BLPConverter.h" />
+    <ClInclude Include="BLPTest.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="lpng1637\png.h" />
     <ClInclude Include="lpng1637\pngconf.h" />
     <ClInclude Include="lpng1637\pngdebug.h" />
@@ -167,7 +172,9 @@
     <ClInclude Include="zlib-1.2.11\zutil.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BLPConverter.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="BLPTest.cpp" />
     <ClCompile Include="lpng1637\example.c" />
     <ClCompile Include="lpng1637\png.c" />
     <ClCompile Include="lpng1637\pngerror.c" />

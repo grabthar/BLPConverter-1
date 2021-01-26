@@ -2,10 +2,14 @@
 //
 
 #include <iostream>
-
+//#include <cstdio>
 int main()
 {
+    stricmp("a", "b");
+    printf("");
+    std::printf("");
     std::cout << "Hello World!\n";
+    std::printf("");
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

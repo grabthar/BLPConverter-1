@@ -1,5 +1,7 @@
-#ifndef MEMIMAGE_H
-#define MEMIMAGE_H
+#pragma once
+
+//#ifndef MEMIMAGE_H
+//#define MEMIMAGE_H
 
 #define BLPCONV_MAX_PATH 260
 #define LOG ::printf
@@ -83,7 +85,7 @@ enum FileType
 };
 
 // BLP Load result.  Used as program return code if != 0.
-enum LoadResult
+enum class LoadResult
 {
 	LOADRESULT_SUCCESS		= 0,
 	LOADRESULT_PATCH		= -1,		// .blp is a patch file
@@ -180,4 +182,4 @@ public:
 	}
 };
 
-#endif // MEMIMAGE_H
+//#endif // MEMIMAGE_H

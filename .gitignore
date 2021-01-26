@@ -22,3 +22,4 @@ Distrib
 *.exe
 .vs
 Backup/
+BLPConvert/*

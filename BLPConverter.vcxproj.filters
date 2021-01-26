@@ -20,9 +20,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BLP.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="MemImage.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -92,11 +89,17 @@
     <ClInclude Include="lpng1637\pnglibconf.h">
       <Filter>PNGLib</Filter>
     </ClInclude>
+    <ClInclude Include="BLPTest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BLPConverter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BLPConverter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MemImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -204,6 +207,15 @@
     </ClCompile>
     <ClCompile Include="lpng1637\pngwutil.c">
       <Filter>PNGLib</Filter>
+    </ClCompile>
+    <ClCompile Include="BLPTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

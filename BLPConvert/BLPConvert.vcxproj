@@ -75,6 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -96,12 +97,17 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,31 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\lpng1637\png.c" />
-    <ClCompile Include="..\lpng1637\pngerror.c" />
-    <ClCompile Include="..\lpng1637\pngget.c" />
-    <ClCompile Include="..\lpng1637\pngmem.c" />
-    <ClCompile Include="..\lpng1637\pngpread.c" />
-    <ClCompile Include="..\lpng1637\pngread.c" />
-    <ClCompile Include="..\lpng1637\pngrio.c" />
-    <ClCompile Include="..\lpng1637\pngrtran.c" />
-    <ClCompile Include="..\lpng1637\pngrutil.c" />
-    <ClCompile Include="..\lpng1637\pngset.c" />
-    <ClCompile Include="..\lpng1637\pngtest.c" />
-    <ClCompile Include="..\lpng1637\pngtrans.c" />
-    <ClCompile Include="..\lpng1637\pngwio.c" />
-    <ClCompile Include="..\lpng1637\pngwrite.c" />
-    <ClCompile Include="..\lpng1637\pngwtran.c" />
-    <ClCompile Include="..\lpng1637\pngwutil.c" />
     <ClCompile Include="BLPConvert.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\lpng1637\png.h" />
-    <ClInclude Include="..\lpng1637\pngconf.h" />
-    <ClInclude Include="..\lpng1637\pngdebug.h" />
-    <ClInclude Include="..\lpng1637\pnginfo.h" />
-    <ClInclude Include="..\lpng1637\pngpriv.h" />
-    <ClInclude Include="..\lpng1637\pngstruct.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,58 @@
+Personal Notes:
+
+*** PNG -> BLP ***
+- P8 -> uncompressed, 0 bit alpha
+- P8 with transparency -> uncompressed, 8bit alpha  (Note: Don't know how to make PNGs of this type, except for transparency count = 1)
+- RGB -> compressed, DXT1
+- RGBA	-> compressed, DXT3
+	*OR*
+		-> P8 with transparency [Use this option to preserve BLP format ]
+
+*** BLP -> PNG ***
+- uncompressed, 0 bit alpha -> P8
+	Ex. Character Skins.
+- uncompressed, 1 bit alpha -> P8 with alpha palette (1 entry)
+	Ex. Some clothing (Deckhand's shirt for example)
+- uncompressed, 8 bit alpha -> P8 with alpha palette (1 entry) [This is what WowImage does: retains palette, destroys alpha detail.]
+	*OR*
+							-> RGBA [Destroys palette, retains alpha detail.]
+	Ex. Most clothing.  Item\TextureComponents\TorsoUpperTexture\Cloth_Horde_C_01Purple_Chest_TU_U.png for example.
+
+  - compressed, 0 bit alpha -> DXT1
+	Ex. Sansam root
+- compressed, 1 bit alpha -> DXT1
+	Ex. peaceflower
+- compressed, 8 bit alpha -> DXT3
+	Ex. sungrass
+
+
+uncomp 1-bit:
+- Deckhand's shirt (Cloth_A_03Crewman_Chest_TU_F.blp).  WowImage doesn't give an error when trying to decode this blp
+but doesn't create a png, either.
+
+Notes:
+09-12-24: Added support for BLP_PAL_A4.
+08-02-10: Removed SQUISH_USE_SSE=2 predefine from squish project.
+
+Test:			| Source		| -			| -s
+______________________________________________________________
+BLP_U_A0		| char skin		| OK/OK					HumanMaleSkin00_00.blp
+BLP_U_A1		| some clothes	| OK/OK					?
+BLP_U_A4		| some clothes	| OK/OK					Plate_RaidWarrior_H_01_Chest_TL_F.blp (completely opaque, though)
+BLP_U_A8		| clothes		| OK/OK					Leather_A_05Yellow_Chest_TU_M.blp (human male war starting upper shirt)
+BLP_C_A0		| earthroot		| OK					Sword_1H_Short_A_02Rusty.blp (human male war starting sword)
+BLP_C_A1		| peacebloom	| OK					Hair01_05 (Human golden blonde hair)
+BLP_DXT3		| 				| OK					NorthshireValley1.blp | sungrass
+BLP_C_A8_7		| see end ->	|						Ability_Druid_Cyclone.blp
+					
+PNG_RGB			|				| BLP_U_A0	| BLP_C_A0 (DXT1)
+PNG_RGBA		|				| BLP_U_A8	| BLP_C_A8 (DXT3)
+PNG_P8			|				| BLP_U_A0	| -
+PNG_P8_1trans	|				| BLP_U_A8
+
+
+PNG_RGB			| ok, igok (pig)
+PNG_RGBA			| ok, igok (horde armory sign)
+PNG_RGBA	-> P A8	| ok, igok (fang top)
+PNG_P8			| ok, igok (character skin)
+PNG_P8_1trans	| ok, igok (fang top)

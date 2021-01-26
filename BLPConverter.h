@@ -1,5 +1,9 @@
-#ifndef BLP_H
-#define BLP_H
+
+#pragma once
+
+
+//#ifndef BLP_H
+//#define BLP_H
 
 ///////////////////////////////////////////////////////////////////////////////
 // BLP Stuff
@@ -37,4 +41,4 @@ static const char* encodingStrings[] =
 	"BGRA",
 };
 
-#endif // BLP_H
+//#endif // BLP_H

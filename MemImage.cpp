@@ -13,7 +13,7 @@ make it easier to add support for other file types.
 //#define SQUISH_USE_SSE 1
 
 #ifndef LINUX
-#include <stdio.h>
+#include <cstdio>
 #else
 #include "port.h"
 #include <libgen.h>
@@ -32,7 +32,7 @@ make it easier to add support for other file types.
 #include <png.h>
 #include "MemImage.h"
 #include "squish/squish.h"
-#include "BLP.h"
+#include "BLPConverter.h"
 #include "palbmp/palettize.h"
 #include "palbmp/palcreate.h"
 
@@ -541,7 +541,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 		errno_t err;
 		_get_errno( &err );
 		LOG("ERROR opening %s: %s.\n", filename, ::strerror(err));
-		return LOADRESULT_FILEERROR;
+		return LoadResult::LOADRESULT_FILEERROR;
 	}
 	if (s_bVerbose)
 		LOG("%s:\n", filename);
@@ -558,7 +558,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 	if (dwFileBytes < sizeof(BLPHeader))
 	{
 		LOG("ERROR: File size (%d) is smaller than the size of a header, not a known type of BLP.\n", dwFileBytes);
-		return LOADRESULT_NOTBLP;
+		return LoadResult::LOADRESULT_NOTBLP;
 	}
 
 	BLPHeader* pHeader = (BLPHeader*) fileBuffer;
@@ -573,18 +573,18 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 		if (0 == ::strcmp("PTCH", id))
 		{
 			LOG("WARNING: This is a Patch (PTCH) file, not an actual BLP (BLP2).\n");
-			return LOADRESULT_PATCH;
+			return LoadResult::LOADRESULT_PATCH;
 		}
 
 		LOG("ERROR: Unexpected ID '%s'--not a BLP file?\n", id);
-		return LOADRESULT_NOTBLP;
+		return LoadResult::LOADRESULT_NOTBLP;
 	}
 
 	// Check Version
 	if (1 != pHeader->version)
 	{
 		LOG("ERROR: Unsupported BLP version %d.\n", pHeader->version);
-		return LOADRESULT_VERSION;
+		return LoadResult::LOADRESULT_VERSION;
 	}
 
 
@@ -639,7 +639,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 
 		// Save the image data.
 		if (!AllocateBuffer(m_width * m_height * bpp))
-			return LOADRESULT_MEMORY;
+			return LoadResult::LOADRESULT_MEMORY;
 
 		// Save image data.
 		BYTE* pImageData = &(fileBuffer[pHeader->mipOffsets[0]]);
@@ -751,7 +751,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 		// Create a buffer for the data.
 		DWORD bpp = (0 == pHeader->alphaBitDepth) ? 3 : 4;
 		if (!AllocateBuffer(m_width * m_height * bpp))
-			return LOADRESULT_MEMORY;
+			return LoadResult::LOADRESULT_MEMORY;
 
 		// Copy into our own buffer.
 		if (0 == pHeader->alphaBitDepth)
@@ -778,17 +778,17 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 		
 		if (8 != pHeader->alphaBitDepth)
 		{
-			LOG("WARNING: alphaBitDepth is %d, expected 8.  Will treat data as though it was 8.\n");
+			LOG("WARNING: alphaBitDepth is %d, expected 8.  Will treat data as though it was 8.\n", pHeader->alphaBitDepth);
 		}
 
 		if (m_width * m_height * 4 != pHeader->mipSizes[0])
 		{
 			LOG("ERROR: mip0 size unexpected.");
-			return LOADRESULT_ERROR;
+			return LoadResult::LOADRESULT_ERROR;
 		}
 
 		if (!AllocateBuffer(m_width * m_height * 4))
-			return LOADRESULT_MEMORY;
+			return LoadResult::LOADRESULT_MEMORY;
 
 		BYTE* source = &(fileBuffer[pHeader->mipOffsets[0]]); 
 		for (DWORD ii = 0; ii < m_width * m_height; ++ii)
@@ -803,7 +803,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 	if (FORMAT_UNSPECIFIED == blpType)
 	{
 		LOG("ERROR: Unexpected blp format.\n");
-		return LOADRESULT_ERROR;
+		return LoadResult::LOADRESULT_ERROR;
 	}
 
 	if (blpTypeRet)
@@ -814,7 +814,7 @@ LoadResult MemImage::LoadFromBLP(const char* filename, FORMATID* blpTypeRet)
 	// Cleanup.
 	delete[] fileBuffer;
 
-	return LOADRESULT_SUCCESS;
+	return LoadResult::LOADRESULT_SUCCESS;
 }
 
 bool MemImage::LoadFromPNG(const char* filename, FORMATID* pngTypeRet)
